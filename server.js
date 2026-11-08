@@ -3,15 +3,27 @@
 // Run:  npm install  →  node server.js  →  open http://localhost:3000
 // v2: Vercel deploy ke liye — app export + guarded listen.
 //     Local par (npm start) koi farq nahi — wese hi chalega jese pehle.
+// v3: Vercel par "/" seedha Express ke paas aata hai (Express preset),
+//     is liye homepage khud serve karo — URL saaf rehta hai, /index.html nahi.
 
 import 'dotenv/config';
 import express from 'express';
 import { GoogleGenAI, Type } from '@google/genai';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Homepage — Vercel par "/" Express ke paas aata hai,
+// is liye index.html khud bhej do (URL saaf rehta hai).
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // ---------------------------------------------------------------
 // FAKE restaurant data (DEMO ONLY) — real client ke liye yahan
@@ -127,7 +139,7 @@ app.post('/api/chat', async (req, res) => {
     let reply = '';
     for (let round = 0; round < 5; round++) {
       const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: history,
         config: {
           systemInstruction: SYSTEM_PROMPT,
