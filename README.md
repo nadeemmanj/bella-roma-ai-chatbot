@@ -32,14 +32,6 @@ Phir browser mein kholo: **http://localhost:3000**
 2. Client ko screen share par http://localhost:3000 dikhao (ya apne phone par kholo)
 3. Kaho: *"Dekho — aapke customers aise sawal puchenge, aur yeh agent khud jawab dega, table bhi book karega. Aapki website par bilkul aise lagega."*
 
-## Real client ke liye badalna (5 minute)
-
-`server.js` mein sirf `RESTAURANT` wala hissa badlo:
-- `name`, `address`, `phone`, `hours`
-- `menu` — uske asal dishes aur prices
-- `SYSTEM_PROMPT` mein restaurant ka naam
-
-Bas! Naya agent tayyar — dobara code likhne ki zaroorat nahi.
 
 ## Zaroori baatein
 
