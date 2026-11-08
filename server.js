@@ -3,8 +3,8 @@
 // Run:  npm install  →  node server.js  →  open http://localhost:3000
 // v2: Vercel deploy ke liye — app export + guarded listen.
 //     Local par (npm start) koi farq nahi — wese hi chalega jese pehle.
-// v3: Vercel par "/" seedha Express ke paas aata hai (Express preset),
-//     is liye homepage khud serve karo — URL saaf rehta hai, /index.html nahi.
+// v4: Model badla — gemini-2.5-flash band ho gaya (Google 404),
+//     ab gemini-3.8-flash (Google khud yehi kehta hai).
 
 import 'dotenv/config';
 import express from 'express';
@@ -139,7 +139,7 @@ app.post('/api/chat', async (req, res) => {
     let reply = '';
     for (let round = 0; round < 5; round++) {
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
         contents: history,
         config: {
           systemInstruction: SYSTEM_PROMPT,
